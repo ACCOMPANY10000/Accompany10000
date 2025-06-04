@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accompany10000 产品目录</title>
+  <title>Accompany10000 Group – Global Defense Trade Strategist</title>
   <style>
-    /* ===== 重置 & 基础 ===== */
+    /* ===== Reset & Base Styles ===== */
     * {
       margin: 0;
       padding: 0;
@@ -15,15 +15,16 @@
       height: 100%;
       width: 100%;
       font-family: Arial, sans-serif;
+      /* 背景图示例：PDF.01.png 位于同一目录下 */
       background: url('PDF.01.png') no-repeat center top;
       background-size: cover;
       overflow: hidden; /* 页面本身不滚动，PDF 区域自己滚 */
     }
 
-    /* ===== 顶部导航栏 ===== */
+    /* ===== Top Navigation ===== */
     header {
       background-color: rgba(0, 71, 173, 0.9);
-      height: 56px;             /* 导航栏高度 */
+      height: 56px;             
       display: flex;
       align-items: center;
       padding: 0 16px;
@@ -36,23 +37,19 @@
       font-weight: normal;
     }
 
-    /* ===== 主体内容 ===== */
-    /* 
-       原本我们用了 padding-top:72px (56px + 16px)，
-       现在改成 padding-top:56px，让 PDF 紧贴在 header 下方。
-    */
+    /* ===== Content Wrapper ===== */
     .content {
-      padding: 56px 16px 16px; 
+      /* 导航高度 56px + 上侧 0px = 56px 顶部留白 */
+      /* 底部留白 16px */
+      padding: 56px 16px 16px;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    /* ===== 嵌入式 PDF 容器 ===== */
+    /* ===== PDF Container ===== */
     .pdf-container {
       width: 100%;
-      /* 由于上面只留了 56px（导航高度）+ 16px 底部间距 = 72px，
-         这里高度要改成 calc(100vh - 56px - 16px)
-         否则嵌入区域会超出可视区。 */
+      /* 可视高度 100vh − (导航 56px + 底部 16px) = calc(100vh − 72px) */
       height: calc(100vh - 72px);
       background-color: rgba(255,255,255,0.95);
       box-shadow: 0 0 12px rgba(0,0,0,0.15);
@@ -64,7 +61,7 @@
       height: 100%;
       border: none;
     }
-    /* 如果 embed 不起作用，改用 iframe： */
+    /* 如果 embed 在某些浏览器中不正常，可改用下面的 iframe： */
     /*
     .pdf-container iframe {
       width: 100%;
@@ -76,21 +73,20 @@
 </head>
 <body>
 
-  <!-- 顶部导航 -->
+  <!-- ===== Top Navigation ===== -->
   <header>
-    <h1>Accompany10000 产品目录</h1>
+    <h1>Accompany10000 Group – Global Defense Trade Strategist</h1>
   </header>
 
-  <!-- 内容 & PDF 嵌入区 -->
+  <!-- ===== Content & PDF Embed ===== -->
   <div class="content">
     <div class="pdf-container">
       <embed
         src="./Accompany10000_Catalog.pdf#toolbar=0"
         type="application/pdf"
       >
-      <!-- 如果 embed 不行，请把上面注释掉，打开下面这行：
-      <iframe src="./Accompany10000_Catalog.pdf#toolbar=0"></iframe>
-      -->
+      <!-- 如果 embed 不兼容，把上面注释掉，取消注释下面这行： -->
+      <!-- <iframe src="./Accompany10000_Catalog.pdf#toolbar=0"></iframe> -->
     </div>
   </div>
 

@@ -1,54 +1,57 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Accompany10000 Catalog Preview</title>
   <style>
-    /* 将页面内容水平居中 */
-    body {
+    /* 让 body 和 html 都为“满屏”，去除所有默认 margin/padding */
+    html, body {
       margin: 0;
       padding: 0;
-      text-align: center;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;       /* 去掉页面滚动条，让 PDF 区接管滚动 */
       background-color: #f5f5f5;
-      font-family: Arial, sans-serif;
     }
-    /* 给嵌入区留一些上下空间 */
-    .embed-container {
-      margin: 50px auto;
-      width: 90%;
-      max-width: 1200px;
+    /* 嵌入容器占据整个可视区域 */
+    .pdf-embed {
+      position: absolute;     /* 绝对定位，铺满视口 */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    .pdf-embed embed {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    /* （可选）如果浏览器不支持 <embed>，使用 <iframe> 做备选 */
+    .pdf-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- 可选：在嵌入 PDF 之前，先显示一张封面示意图 -->
-  <!--
-  <div style="margin-top: 50px;">
-    <img
-      src="PDF.01.png"
-      alt="Catalog Cover"
-      style="max-width: 80%; height: auto; border-radius: 4px; box-shadow: 0 0 10px rgba(0,0,0,0.1);"
-    >
-  </div>
-  -->
-
-  <!-- 嵌入 PDF 文档 -->
-  <div class="embed-container">
+  <!-- PDF 嵌入区域：让 embed 铺满整个视口 -->
+  <div class="pdf-embed">
     <embed
       src="./Accompany10000_Catalog.pdf"
       type="application/pdf"
       width="100%"
-      height="90vh"
+      height="100%"
       style="border: none;"
     >
-    <!-- 如果浏览器不支持 embed，可以提供一个 iframe 备选： -->
+    <!-- 备选：如果 embed 不行，可以把下面的 iframe 放开注释，注释掉上面 <embed> -->
     <!--
     <iframe
       src="./Accompany10000_Catalog.pdf"
       width="100%"
-      height="90vh"
+      height="100%"
       style="border: none;"
     ></iframe>
     -->

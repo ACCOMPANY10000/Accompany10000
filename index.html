@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Accompany10000 产品目录</title>
   <style>
-    /* ========== 重置与基础样式 ========== */
     * {
       margin: 0;
       padding: 0;
@@ -14,17 +13,13 @@
     html, body {
       height: 100%;
       width: 100%;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      /* 使用 PDF.01.png 作为背景图 */
+      font-family: Arial, sans-serif;
       background: url('PDF.01.png') no-repeat center top;
-      background-size: cover;      /* 平铺并等比填满 */
-      color: #333;
-      overflow: hidden;             /* 关闭页面滚动条，PDF 区域会自行滚动 */
+      background-size: cover;
+      overflow: hidden;
     }
-
-    /* ========== 顶部导航栏 ========== */
     header {
-      background-color: rgba(0, 71, 173, 0.9);  /* 半透明深蓝色，与背景图叠加更柔和 */
+      background-color: rgba(0, 71, 173, 0.9);
       height: 56px;
       display: flex;
       align-items: center;
@@ -37,22 +32,15 @@
       color: #fff;
       font-weight: normal;
     }
-
-    /* ========== 主体内容区 ========== */
     .content {
-      /* 导航 56px + 上方留白 16px = 72px。下方留白 16px */
       padding: 72px 16px 16px;
       max-width: 1200px;
       margin: 0 auto;
     }
-
-    /* ========== 嵌入式 PDF 容器 ========== */
     .pdf-container {
       width: 100%;
-      /* 视口高度减去上方 88px (导航+上下间距) */
       height: calc(100vh - 88px);
       background-color: rgba(255,255,255,0.95);
-      /* 给容器加一个轻微的半透明白底，并带阴影和圆角 */
       box-shadow: 0 0 12px rgba(0,0,0,0.15);
       border-radius: 6px;
       overflow: hidden;
@@ -62,34 +50,21 @@
       height: 100%;
       border: none;
     }
-    /* 兼容：如果 embed 无法显示，可使用下面的 iframe，注释掉上面 embed */
-    .pdf-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
   </style>
 </head>
 <body>
 
-  <!-- ========== 顶部导航栏 ========== -->
   <header>
     <h1>Accompany10000 产品目录</h1>
   </header>
 
-  <!-- ========== 主体：PDF 嵌入区 ========== -->
   <div class="content">
     <div class="pdf-container">
+      <!-- 在这里给 PDF URL 加上 #toolbar=0 -->
       <embed
-        src="./Accompany10000_Catalog.pdf"
+        src="./Accompany10000_Catalog.pdf#toolbar=0"
         type="application/pdf"
       >
-      <!-- 如果 embed 无法正常工作，可以把下面这行取消注释，注释掉上面的 embed -->
-      <!--
-      <iframe
-        src="./Accompany10000_Catalog.pdf"
-      ></iframe>
-      -->
     </div>
   </div>
 

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Accompany10000 产品目录</title>
   <style>
+    /* ===== 重置 & 基础 ===== */
     * {
       margin: 0;
       padding: 0;
@@ -16,11 +17,13 @@
       font-family: Arial, sans-serif;
       background: url('PDF.01.png') no-repeat center top;
       background-size: cover;
-      overflow: hidden;
+      overflow: hidden; /* 页面本身不滚动，PDF 区域自己滚 */
     }
+
+    /* ===== 顶部导航栏 ===== */
     header {
       background-color: rgba(0, 71, 173, 0.9);
-      height: 56px;
+      height: 56px;             /* 导航栏高度 */
       display: flex;
       align-items: center;
       padding: 0 16px;
@@ -32,14 +35,25 @@
       color: #fff;
       font-weight: normal;
     }
+
+    /* ===== 主体内容 ===== */
+    /* 
+       原本我们用了 padding-top:72px (56px + 16px)，
+       现在改成 padding-top:56px，让 PDF 紧贴在 header 下方。
+    */
     .content {
-      padding: 72px 16px 16px;
+      padding: 56px 16px 16px; 
       max-width: 1200px;
       margin: 0 auto;
     }
+
+    /* ===== 嵌入式 PDF 容器 ===== */
     .pdf-container {
       width: 100%;
-      height: calc(100vh - 88px);
+      /* 由于上面只留了 56px（导航高度）+ 16px 底部间距 = 72px，
+         这里高度要改成 calc(100vh - 56px - 16px)
+         否则嵌入区域会超出可视区。 */
+      height: calc(100vh - 72px);
       background-color: rgba(255,255,255,0.95);
       box-shadow: 0 0 12px rgba(0,0,0,0.15);
       border-radius: 6px;
@@ -50,21 +64,33 @@
       height: 100%;
       border: none;
     }
+    /* 如果 embed 不起作用，改用 iframe： */
+    /*
+    .pdf-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    */
   </style>
 </head>
 <body>
 
+  <!-- 顶部导航 -->
   <header>
     <h1>Accompany10000 产品目录</h1>
   </header>
 
+  <!-- 内容 & PDF 嵌入区 -->
   <div class="content">
     <div class="pdf-container">
-      <!-- 在这里给 PDF URL 加上 #toolbar=0 -->
       <embed
         src="./Accompany10000_Catalog.pdf#toolbar=0"
         type="application/pdf"
       >
+      <!-- 如果 embed 不行，请把上面注释掉，打开下面这行：
+      <iframe src="./Accompany10000_Catalog.pdf#toolbar=0"></iframe>
+      -->
     </div>
   </div>
 

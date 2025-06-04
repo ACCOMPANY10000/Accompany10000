@@ -3,32 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accompany10000 Catalog Preview</title>
+  <title>Accompany10000 产品目录</title>
   <style>
-    /* 让 body 和 html 都为“满屏”，去除所有默认 margin/padding */
-    html, body {
+    /* ========== 重置与基础 ========== */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
       height: 100%;
       width: 100%;
-      overflow: hidden;       /* 去掉页面滚动条，让 PDF 区接管滚动 */
-      background-color: #f5f5f5;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
     }
-    /* 嵌入容器占据整个可视区域 */
-    .pdf-embed {
-      position: absolute;     /* 绝对定位，铺满视口 */
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+
+    /* ========== 顶部导航 ========== */
+    header {
+      background-color: #3367d6;      /* 你可以根据品牌自己调整颜色 */
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .pdf-embed embed {
+    header h1 {
+      font-size: 18px;
+      color: #fff;
+      font-weight: normal;
+    }
+
+    /* ========== 主体内容 ========== */
+    .content {
+      /* 导航 56px + 下方留 16px 间距 = 72px */
+      padding: 72px 16px 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ========== 嵌入式 PDF 区 ========== */
+    .pdf-container {
+      width: 100%;
+      /* 视窗高度减去导航 + 上下间距 = 100vh - (56 + 32) ≈ 100vh - 88px */
+      height: calc(100vh - 88px);
+      background-color: #fff;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .pdf-container embed {
       width: 100%;
       height: 100%;
       border: none;
     }
-    /* （可选）如果浏览器不支持 <embed>，使用 <iframe> 做备选 */
-    .pdf-embed iframe {
+    /* 兼容性备选：如果浏览器不支持 embed，可以改用 iframe */
+    .pdf-container iframe {
       width: 100%;
       height: 100%;
       border: none;
@@ -37,24 +67,25 @@
 </head>
 <body>
 
-  <!-- PDF 嵌入区域：让 embed 铺满整个视口 -->
-  <div class="pdf-embed">
-    <embed
-      src="./Accompany10000_Catalog.pdf"
-      type="application/pdf"
-      width="100%"
-      height="100%"
-      style="border: none;"
-    >
-    <!-- 备选：如果 embed 不行，可以把下面的 iframe 放开注释，注释掉上面 <embed> -->
-    <!--
-    <iframe
-      src="./Accompany10000_Catalog.pdf"
-      width="100%"
-      height="100%"
-      style="border: none;"
-    ></iframe>
-    -->
+  <!-- ===== 顶部导航 ===== -->
+  <header>
+    <h1>Accompany10000 产品目录</h1>
+  </header>
+
+  <!-- ===== 主体：嵌入 PDF ===== -->
+  <div class="content">
+    <div class="pdf-container">
+      <embed
+        src="./Accompany10000_Catalog.pdf"
+        type="application/pdf"
+      >
+      <!-- 如果 embed 不生效，可把下面的 iframe 取消注释，注释掉上面 <embed> -->
+      <!--
+      <iframe
+        src="./Accompany10000_Catalog.pdf"
+      ></iframe>
+      -->
+    </div>
   </div>
 
 </body>

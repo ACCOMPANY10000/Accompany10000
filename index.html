@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Accompany10000 Group – Global Defense Trade Strategist</title>
+
   <style>
     /* ========== Reset & Base Styles ========== */
     * {
@@ -17,22 +18,40 @@
       font-family: Arial, sans-serif;
       background: url('PDF.01.png') no-repeat center top;
       background-size: cover;
-      overflow: hidden; /* 页面本身不滚动，PDF 区域自己滚 */
+      overflow: hidden;
     }
 
-    /* ========== Top Navigation ========== */
+    /* ========== Top Navigation (Dark Red) ========== */
     header {
-      background-color: rgba(0, 71, 173, 0.9);
-      height: 56px;             
+      height: 56px;
       display: flex;
       align-items: center;
       padding: 0 16px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.45);
       z-index: 10;
+      cursor: pointer;
+
+      /* 暗红色渐变效果 */
+      background: radial-gradient(
+        ellipse at center,
+        #7a0c0c 0%,
+        #5a0808 45%,
+        #3d0404 100%
+      );
     }
+
+    header:hover {
+      background: radial-gradient(
+        ellipse at center,
+        #8a0f0f 0%,
+        #650909 45%,
+        #450505 100%
+      );
+    }
+
     header h1 {
       font-size: 18px;
-      color: #fff;
+      color: #ffffff;
       font-weight: normal;
       white-space: nowrap;
       overflow: hidden;
@@ -41,7 +60,6 @@
 
     /* ========== Content Wrapper ========== */
     .content {
-      /* 导航高度 56px + 底部留白 16px = 共 56px 顶部留白 */
       padding: 56px 16px 16px;
       max-width: 1200px;
       margin: 0 auto;
@@ -51,7 +69,6 @@
     .pdf-container {
       position: relative;
       width: 100%;
-      /* 可视高度 100vh − (导航 56px + 底部 16px) = calc(100vh - 72px) */
       height: calc(100vh - 72px);
       background-color: rgba(255,255,255,0.95);
       box-shadow: 0 0 12px rgba(0,0,0,0.15);
@@ -59,16 +76,16 @@
       overflow: hidden;
     }
 
-    /* 1) 缩略图封面，默认可见（桌面端由用户点击触发显示 PDF） */
+    /* 封面缩略图（桌面端默认显示） */
     #pdf-thumbnail {
       width: 100%;
       height: 100%;
       object-fit: cover;
       cursor: pointer;
-      display: block;  /* 默认显示 */
+      display: block;
     }
 
-    /* 2) 嵌入式 PDF 区，默认隐藏（等用户点击封面后再显示） */
+    /* PDF 本体（默认隐藏） */
     #pdf-embed {
       position: absolute;
       top: 0;
@@ -76,12 +93,11 @@
       width: 100%;
       height: 100%;
       border: none;
-      display: none;   /* 初始隐藏 */
+      display: none;
     }
 
-    /* ========== Responsive for Mobile ========== */
+    /* ========== Mobile ========== */
     @media (max-width: 768px) {
-      /* 移动端直接隐藏封面，让 PDF 一上来就可见 */
       #pdf-thumbnail {
         display: none !important;
       }
@@ -91,83 +107,72 @@
     }
   </style>
 </head>
+
 <body>
 
-  <!-- ===== Top Navigation ===== -->
-  <header>
+  <!-- ===== Top Navigation (Clickable) ===== -->
+  <header onclick="window.open('https://www.polygroupchn.com/', '_blank')">
     <h1>Accompany10000 Group – Global Defense Trade Strategist</h1>
   </header>
 
-  <!-- ===== Content & PDF Embed ===== -->
+  <!-- ===== Content & PDF ===== -->
   <div class="content">
     <div class="pdf-container">
-      <!-- 1) 桌面端点击才显示 PDF 的封面缩略图 -->
+
+      <!-- PDF 封面 -->
       <img
         id="pdf-thumbnail"
         src="PDF.01.png"
-        alt="Accompany10000 Catalog Cover (Click to load PDF)"
+        alt="Accompany10000 Catalog Cover"
         title="Click to load full PDF"
       />
 
-      <!-- 2) 嵌入式 PDF，本来桌面端点击封面再显示，移动端一进来直接 visible -->
+      <!-- PDF 内容 -->
       <embed
         id="pdf-embed"
         src="./Accompany10000%20Catalog.pdf#toolbar=0"
         type="application/pdf"
       >
-      <!-- 如果 embed 在某些平台不兼容，可启用下行 iframe 方案，注释掉上方 embed -->
-      <!--
-      <iframe
-        id="pdf-embed"
-        src="./Accompany10000%20Catalog.pdf#toolbar=0&navpanes=0&scrollbar=0"
-      ></iframe>
-      -->
     </div>
   </div>
 
   <script>
-    // ========== 桌面端：点击封面后，隐藏封面、显示 PDF ==========
-    (function() {
+    // ===== Desktop: click cover to load PDF =====
+    (function () {
       const thumbnail = document.getElementById('pdf-thumbnail');
       const embedEl   = document.getElementById('pdf-embed');
 
-      // 只有在宽度 > 768px 时，才绑定点击事件加载 PDF
       function isDesktop() {
         return window.innerWidth > 768;
       }
 
-      // 点击封面后执行
       function onThumbnailClick() {
         thumbnail.style.display = 'none';
         embedEl.style.display = 'block';
       }
 
-      // 进入页面后如果是桌面端，则需要绑定点击事件
-      function initThumbnailHandler() {
+      function init() {
         if (isDesktop()) {
           thumbnail.addEventListener('click', onThumbnailClick);
         } else {
-          // 如果宽度已小于等于 768px，则直接显示 pdf（CSS 已处理，这里仅做安全检查）
           thumbnail.style.display = 'none';
-          embedEl.style.display   = 'block';
+          embedEl.style.display = 'block';
         }
       }
 
-      // 监听窗口大小变化，如果从“移动端”切换到“桌面端”时，要重新显示封面+绑定事件
       window.addEventListener('resize', () => {
         if (isDesktop()) {
           thumbnail.style.display = 'block';
-          embedEl.style.display   = 'none';
+          embedEl.style.display = 'none';
           thumbnail.addEventListener('click', onThumbnailClick);
         } else {
           thumbnail.style.display = 'none';
-          embedEl.style.display   = 'block';
+          embedEl.style.display = 'block';
           thumbnail.removeEventListener('click', onThumbnailClick);
         }
       });
 
-      // DOM 加载后初始化
-      document.addEventListener('DOMContentLoaded', initThumbnailHandler);
+      document.addEventListener('DOMContentLoaded', init);
     })();
   </script>
 
